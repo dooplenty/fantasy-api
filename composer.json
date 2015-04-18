@@ -1,23 +1,16 @@
 {
 	"name": "dooplenty/fantasy-api",
-	"description": "Fantasy Football integration for Front Row Fantasy Sports",
-	"homepage": "http://frontrowfantasysports.com",
-	"keywords": ["october", "cms", "frontrowfantasysports", "fantasy"],
+	"description": "api client for different fantasy providers",
+	"homepage": "http://dooplenty.com",
+	"keywords": ["october", "cms", "fantasy", "football"],
 	"authors": [
 		{
 			"name": "Brantley Kendall",
 			"email": "brantley@dooplenty.com"
 		}
 	],
-	"repositories": [
-       	{	
-    	   	"type": "git",
-        	"url": "https://github.com/dooplenty/fantasy-api"
-       	}
-    ],
 	"require": {
-		"php": ">=5.4.0",
-		"dooplenty/fantasy-api": "dev-master"
+		"php": ">=5.4.0"
 	}
 }
 
