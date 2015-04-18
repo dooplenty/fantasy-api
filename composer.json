@@ -9,6 +9,11 @@
 			"email": "brantley@dooplenty.com"
 		}
 	],
+	"autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
 	"require": {
 		"php": ">=5.4.0"
 	}
