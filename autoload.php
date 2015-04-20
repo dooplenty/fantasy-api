@@ -5,6 +5,7 @@
 
 function dooplenty_api_php_client_autoload($className) {
   $classPath = explode('_', $className);
+  print_r($classPath);
   if ($classPath[0] != 'Fantasy') {
     return;
   }
@@ -12,7 +13,9 @@ function dooplenty_api_php_client_autoload($className) {
     // Maximum class file path depth in this project is 3.
     $classPath = array_slice($classPath, 0, 3);
   }
+
   $filePath = dirname(__FILE__) . '/src/' . implode('/', $classPath) . '.php';
+
   if (file_exists($filePath)) {
     require_once($filePath);
   }
