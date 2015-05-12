@@ -5,7 +5,7 @@
 
 function dooplenty_api_php_client_autoload($className) {
   $classPath = explode('_', $className);
-  print_r($classPath);
+
   if ($classPath[0] != 'Fantasy') {
     return;
   }
@@ -15,10 +15,11 @@ function dooplenty_api_php_client_autoload($className) {
   }
 
   $filePath = dirname(__FILE__) . '/src/' . implode('/', $classPath) . '.php';
-
   if (file_exists($filePath)) {
     require_once($filePath);
   }
 }
 
 spl_autoload_register('dooplenty_api_php_client_autoload');
+
+require_once('vendor/autoload.php');

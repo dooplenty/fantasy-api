@@ -6,7 +6,8 @@
 	"authors": [
 		{
 			"name": "Brantley Kendall",
-			"email": "brantley@dooplenty.com"
+			"email": "brantley@dooplenty.com",
+			"role": "Developer"
 		}
 	],
 	"autoload": {
@@ -15,7 +16,8 @@
         ]
     },
 	"require": {
-		"php": ">=5.4.0"
+		"php": ">=5.4.0",
+		"lusitanian/oauth": "~0.3"
 	}
 }
 

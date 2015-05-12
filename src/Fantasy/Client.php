@@ -3,13 +3,24 @@
  * Copyright 2015 Dooplenty LLC.
  */
 
-require_once realpath(dirname(__FILE__) . '/../../../../autoload.php');
+require_once realpath(dirname(__FILE__) . '/../../autoload.php');
 
 class Fantasy_Client
 {
-	public function __construct($provider)
+	protected $provider;
+
+	public function __construct($provider, $config_array = null)
 	{
+
+		$this->provider = Fantasy_Provider::getInstance($provider, $config_array);
 		
+	}
+
+	public function __call($method, $args)
+	{
+		if(method_exists($this->provider, $method)) {
+			return $this->provider->$method();
+		}
 	}
 }
 ?>
