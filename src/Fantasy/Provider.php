@@ -37,6 +37,7 @@ abstract class Fantasy_Provider
 		$currentUri->setQuery('');
 		
 		$this->currentUri = $currentUri;
+		return $this->currentUri;
 	}
 
 	public function initStorage($token, $state = null)
