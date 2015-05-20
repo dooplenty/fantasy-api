@@ -1,10 +1,15 @@
 <?php
 
+use OAuth\Common\Storage\Redis;
+use Predis\Client as Predis;
+
 abstract class Fantasy_Provider
 {
 	protected $service;
 
 	protected $currentUri;
+
+	private $_storage;
 
 	/**
 	 * Returns a new instance of the specified fantasy provider
@@ -32,6 +37,29 @@ abstract class Fantasy_Provider
 		$currentUri->setQuery('');
 		
 		$this->currentUri = $currentUri;
+	}
+
+	public function initStorage($token, $state = null)
+	{
+		$key = $token . "_" . $state;
+		if($this->_storage[$key]) {
+			return $this->_storage;
+		}
+
+		$predis = new Predis(array(
+			'host' => 'localhost',
+			'port' => '6379'
+		));
+
+		$this->_storage[$key] = new Redis($predis, $token, $state);
+
+		try {
+			$predis->connect();
+		} catch(\Predis\Connection\ConnectionException $e) {
+			//handle connection exception
+		}
+
+		return $this->_storage[$key];
 	}
 
 	public function getService(){}

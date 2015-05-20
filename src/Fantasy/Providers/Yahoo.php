@@ -1,11 +1,12 @@
 <?php
 use OAuth\OAuth1\Service\Yahoo;
-use OAuth\Common\Storage\Session;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\ServiceFactory;
 
 class Fantasy_Providers_Yahoo extends Fantasy_Provider
 {
+	protected $storage;
+
 	/**
 	 * Handles retrieving data from the Yahoo fantasy provider
 	 */
@@ -14,17 +15,25 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		$clientId = $configuration['client_id'];
 		$clientSecret = $configuration['client_secret'];
 		$credentials = new Credentials($clientId, $clientSecret, $this->getUriObject()->getAbsoluteUri());
-		$storage = new Session();
+		$storage = $this->initStorage('Yahoo', 'app_init');
 
 		$serviceFactory = new \OAuth\ServiceFactory();
 		$this->service = $serviceFactory->createService('Yahoo', $credentials, $storage);
 	}
 
+	/**
+	 * Return service
+	 * @return OAuth1\Service\AbstractService
+	 */
 	public function getService()
 	{
 		return $this->service;
 	}
 
+	/**
+	 * Get authorization uri for service
+	 * @return OAuth\Common\Http\Uri\Uri
+	 */
 	public function getAuthorizationUri()
 	{
 		$token = $this->service->requestRequestToken();

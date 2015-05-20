@@ -19,6 +19,6 @@ class BaseTest extends PHPUnit_Framework_TestCase
 	protected function parseIni($provider)
 	{
 		$ini_settings = parse_ini_file(__DIR__.'/'.$provider.'/test.ini');
-		print_r($ini_settings);
+		return $ini_settings;
 	}
 }
