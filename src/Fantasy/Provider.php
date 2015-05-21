@@ -63,5 +63,10 @@ abstract class Fantasy_Provider
 		return $this->_storage[$key];
 	}
 
+	public function authAppend()
+	{
+		return "/auth/" . $this->getServiceName();
+	}
+
 	public function getService(){}
 }

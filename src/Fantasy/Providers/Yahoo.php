@@ -14,7 +14,9 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	{
 		$clientId = $configuration['client_id'];
 		$clientSecret = $configuration['client_secret'];
-		$credentials = new Credentials($clientId, $clientSecret, $this->getUriObject()->getAbsoluteUri());
+		$callback_url = $this->getUriObject()->getAbsoluteUri() . $this->authAppend();
+		$credentials = new Credentials($clientId, $clientSecret, $callback_url);
+		
 		$storage = $this->initStorage('Yahoo', 'app_init');
 
 		$serviceFactory = new \OAuth\ServiceFactory();
@@ -39,5 +41,10 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		$token = $this->service->requestRequestToken();
 		$url = $this->service->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
 		return $url;
+	}
+
+	public function getServiceName()
+	{
+		return 'yahoo';
 	}
 }
