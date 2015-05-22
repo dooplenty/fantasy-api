@@ -69,4 +69,9 @@ abstract class Fantasy_Provider
 	}
 
 	public function getService(){}
+
+	protected function getStorageName($config)
+	{
+		return $this->getServiceName() . (isset($config['tag']) ? '_'.$config['tag'] : '');
+	}
 }
