@@ -16,6 +16,7 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	{
 		$clientId = $configuration['client_id'];
 		$clientSecret = $configuration['client_secret'];
+		$callback_url = $this->getUriObject()->getAbsoluteUri() . $this->authAppend();
 		$credentials = new Credentials($clientId, $clientSecret, $callback_url);
 		$this->serviceName = 'yahoo';
 
