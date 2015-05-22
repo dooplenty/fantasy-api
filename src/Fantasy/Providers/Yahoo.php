@@ -7,8 +7,6 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 {
 	protected $storage;
 
-	protected $serviceName;
-
 	/**
 	 * Handles retrieving data from the Yahoo fantasy provider
 	 */
@@ -18,7 +16,6 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		$clientSecret = $configuration['client_secret'];
 		$callback_url = $this->getUriObject()->getAbsoluteUri() . $this->authAppend();
 		$credentials = new Credentials($clientId, $clientSecret, $callback_url);
-		$this->serviceName = 'yahoo';
 
 		$storageName = $this->getStorageName($configuration);
 
@@ -50,6 +47,6 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 
 	public function getServiceName()
 	{
-		return $this->serviceName;
+		return 'yahoo';
 	}
 }
