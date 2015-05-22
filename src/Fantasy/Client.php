@@ -16,6 +16,11 @@ class Fantasy_Client
 		
 	}
 
+	public function getProvider()
+	{
+		return $this->provider;
+	}
+
 	public function __call($method, $args)
 	{
 		if(method_exists($this->provider, $method)) {
