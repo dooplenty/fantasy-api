@@ -39,5 +39,6 @@ class YahooTest extends BaseTest
 		$config = $this->parseIni('yahoo');
 		$client = $this->getClient('yahoo', $config);
 		$games = $client->getGames();
+		return $games;
 	}
 }
