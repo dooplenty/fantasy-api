@@ -33,4 +33,11 @@ class YahooTest extends BaseTest
 		$this->assertTrue($storage instanceof \OAuth\Common\Storage\TokenStorageInterface);
 		$this->assertTrue($storage->hasAccessToken('Yahoo'));
 	}
+
+	public function testGetGames()
+	{
+		$config = $this->parseIni('yahoo');
+		$client = $this->getClient('yahoo', $config);
+		$games = $client->getGames();
+	}
 }

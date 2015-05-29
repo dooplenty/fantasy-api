@@ -22,7 +22,7 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		$storage = $this->initStorage($storageName, 'app_init');
 
 		$serviceFactory = new \OAuth\ServiceFactory();
-		$this->service = $serviceFactory->createService($this->getServiceName(), $credentials, $storage);
+		$this->service = $serviceFactory->createService($this->getServiceName(), $credentials, $storage, null, new OAuth\Common\Http\Uri\Uri("http://fantasysports.yahooapis.com/fantasy/v2/"));
 	}
 
 	/**
@@ -48,5 +48,18 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	public function getServiceName()
 	{
 		return 'yahoo';
+	}
+
+	/**
+	 * Return fantasy games user has authorized
+	 * @param  boolean $available_only Whether or not to only return currently available games or all
+	 * @return json
+	 */
+	public function getGames($available_only = true)
+	{
+		$extra = ($available_only) ? ';is_available=1' : '';
+		$games = $this->service->request("users;use_login=1/games$extra;game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
+
+		return $games;
 	}
 }

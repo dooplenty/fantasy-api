@@ -21,3 +21,5 @@ function dooplenty_api_php_client_autoload($className) {
 }
 
 spl_autoload_register('dooplenty_api_php_client_autoload');
+
+require_once('vendor/autoload.php');
