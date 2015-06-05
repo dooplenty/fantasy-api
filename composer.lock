@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6ffc9d664d4d0e78e4c7518196911559",
+    "hash": "25b48715cd4419ab9ec210debb583380",
     "packages": [
         {
             "name": "lusitanian/oauth",
-            "version": "v0.3.5",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Lusitanian/PHPoAuthLib.git",
-                "reference": "ac5a1cd5a4519143728dce2213936eea302edf8a"
+                "url": "https://github.com/dooplenty/PHPoAuthLib.git",
+                "reference": "f9f81866c3ece60aa763b3831a77c24264361d58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/ac5a1cd5a4519143728dce2213936eea302edf8a",
-                "reference": "ac5a1cd5a4519143728dce2213936eea302edf8a",
+                "url": "https://api.github.com/repos/dooplenty/PHPoAuthLib/zipball/f9f81866c3ece60aa763b3831a77c24264361d58",
+                "reference": "f9f81866c3ece60aa763b3831a77c24264361d58",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,6 @@
                     "OAuth\\Unit": "tests"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -61,12 +60,15 @@
             ],
             "description": "PHP 5.3+ oAuth 1/2 Library",
             "keywords": [
-                "Authentication",
+                "authentication",
                 "authorization",
                 "oauth",
                 "security"
             ],
-            "time": "2014-09-05 15:19:58"
+            "support": {
+                "source": "https://github.com/dooplenty/PHPoAuthLib/tree/master"
+            },
+            "time": "2014-11-21 20:09:01"
         },
         {
             "name": "predis/predis",
@@ -122,7 +124,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "lusitanian/oauth": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

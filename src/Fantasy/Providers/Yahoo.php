@@ -41,8 +41,8 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	public function getAuthorizationUri()
 	{
 		$token = $this->service->requestRequestToken();
-		$url = $this->service->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
-		return $url;
+		$uri = $this->service->getAuthorizationUri(['oauth_token' => $token->getRequestToken()]);
+		return $uri;
 	}
 
 	public function getServiceName()

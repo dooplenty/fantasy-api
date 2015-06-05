@@ -24,7 +24,7 @@ class Fantasy_Client
 	public function __call($method, $args)
 	{
 		if(method_exists($this->provider, $method)) {
-			return $this->provider->$method();
+			return call_user_func_array(array($this->provider, $method), $args);
 		}
 	}
 }

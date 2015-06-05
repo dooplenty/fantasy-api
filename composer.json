@@ -15,9 +15,15 @@
             "src/"
         ]
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dooplenty/PHPoAuthLib"
+        }
+    ],
 	"require": {
 		"php": ">=5.4.0",
-		"lusitanian/oauth": "~0.3",
-		"predis/predis": "~1.0"
+		"predis/predis": "~1.0",
+		"lusitanian/oauth": "dev-master"
 	}
 }
