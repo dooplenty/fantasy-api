@@ -2,6 +2,6 @@
 /**
  * Generic library-level exception.
  */
-class TokenNotFoundException extends \Exception
+class Fantasy_Client_Exception_TokenNotFoundException extends Fantasy_Client_Exception
 {
 }

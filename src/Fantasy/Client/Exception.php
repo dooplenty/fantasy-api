@@ -2,6 +2,6 @@
 /**
  * Generic library-level exception.
  */
-class Exception extends \Exception
+class Fantasy_Client_Exception extends \Exception
 {
 }
