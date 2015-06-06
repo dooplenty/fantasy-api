@@ -1,12 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/game/nfl" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" time="30.575037002563ms" copyright="Data provided by Yahoo! and STATS, LLC" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
-  <game>
-    <game_key>257</game_key>
-    <game_id>257</game_id>
-    <name>Football</name>
-    <code>nfl</code>
-    <type>full</type>
-    <url>http://football.fantasysports.yahoo.com/f1</url>
-    <season>2011</season>
-  </game>
+<fantasy_content xml:lang="en-US" yahoo:uri="http://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games;game_codes=nfl" time="31.527042388916ms" copyright="Data provided by Yahoo! and STATS, LLC" refresh_rate="31" xmlns:yahoo="http://www.yahooapis.com/v1/base.rng" xmlns="http://fantasysports.yahooapis.com/fantasy/v2/base.rng">
+ <users count="1">
+  <user>
+   <guid>1234567890ABCDEFGHIJKLMNOP</guid>
+   <games count="3">
+    <game>
+     <game_key>273</game_key>
+     <game_id>273</game_id>
+     <name>Football</name>
+     <code>nfl</code>
+     <type>full</type>
+     <url>http://football.fantasysports.yahoo.com/archive/nfl/2012</url>
+     <season>2012</season>
+    </game>
+    <game>
+     <game_key>314</game_key>
+     <game_id>314</game_id>
+     <name>Football</name>
+     <code>nfl</code>
+     <type>full</type>
+     <url>http://football.fantasysports.yahoo.com/archive/nfl/2013</url>
+     <season>2013</season>
+    </game>
+    <game>
+     <game_key>331</game_key>
+     <game_id>331</game_id>
+     <name>Football</name>
+     <code>nfl</code>
+     <type>full</type>
+     <url>http://football.fantasysports.yahoo.com/archive/nfl/2014</url>
+     <season>2014</season>
+    </game>
+   </games>
+  </user>
+ </users>
 </fantasy_content>

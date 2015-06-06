@@ -36,9 +36,15 @@ class YahooTest extends BaseTest
 
 	public function testGetGames()
 	{
-		$config = $this->parseIni('yahoo');
-		$client = $this->getClient('yahoo', $config);
-		$games = $client->getGames();
-		return $games;
+		$xml = $this->getSample('yahoo', 'games');
+
+		$json = Fantasy_Translations_Translator::xmlToJson($xml);
+		$this->assertTrue(is_string($json));
+
+		$php = Fantasy_Translations_Translator::xmlToArray($xml);
+		$this->assertTrue(is_array($php));
+
+		$obj = Fantasy_Translations_Translator::xmlToObject($xml);
+		$this->assertTrue(is_object($obj));
 	}
 }

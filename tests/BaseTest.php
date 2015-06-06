@@ -21,4 +21,9 @@ class BaseTest extends PHPUnit_Framework_TestCase
 		$ini_settings = parse_ini_file(__DIR__.'/'.$provider.'/test.ini');
 		return $ini_settings;
 	}
+
+	protected function getSample($provider, $type)
+	{
+		return file_get_contents(__DIR__.'/'.$provider.'/samples/'.$type.'.xml');
+	}
 }

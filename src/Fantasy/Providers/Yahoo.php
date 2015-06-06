@@ -7,6 +7,8 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 {
 	protected $storage;
 
+	protected $format = 'array';
+
 	/**
 	 * Handles retrieving data from the Yahoo fantasy provider
 	 */
@@ -52,14 +54,23 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 
 	/**
 	 * Return fantasy games user has authorized
-	 * @param  boolean $available_only Whether or not to only return currently available games or all
-	 * @return json
+	 * @param  array $options additional options to append to query for games
+	 * @param string $format format to return
+	 * @return mixed
 	 */
-	public function getGames($available_only = true)
+	public function getGames($options = array(), $format = 'array')
 	{
-		$extra = ($available_only) ? ';is_available=1' : '';
-		$games = $this->service->request("users;use_login=1/games$extra;game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
+		$extraString = get_class($this).time();
+		global $$extraString;
 
-		return $games;
+		array_walk($options, function($value, $key, $extraString){
+			global $$extraString;
+			$$extraString .= ";$key=$value";
+		}, $extraString);
+
+		$games = $this->service->request("users;use_login=1/games${$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
+		
+		$method = "xmlTo".ucfirst($format);
+		return Fantasy_Translations_Translator::$method($games);
 	}
 }
