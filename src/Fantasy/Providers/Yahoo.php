@@ -69,7 +69,7 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		}, $extraString);
 
 		$games = $this->service->request("users;use_login=1/games${$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
-		
+
 		$method = "xmlTo".ucfirst($format);
 		return Fantasy_Translations_Translator::$method($games);
 	}
