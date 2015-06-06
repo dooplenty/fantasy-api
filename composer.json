@@ -24,6 +24,6 @@
 	"require": {
 		"php": ">=5.4.0",
 		"predis/predis": "~1.0",
-		"lusitanian/oauth": "dev-master"
+		"lusitanian/oauth": "*"
 	}
 }

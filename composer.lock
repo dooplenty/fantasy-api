@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "25b48715cd4419ab9ec210debb583380",
+    "hash": "776e83fd3541af4ad950a14a38481e60",
     "packages": [
         {
             "name": "lusitanian/oauth",
-            "version": "dev-master",
+            "version": "v0.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dooplenty/PHPoAuthLib.git",
-                "reference": "f9f81866c3ece60aa763b3831a77c24264361d58"
+                "reference": "ac5a1cd5a4519143728dce2213936eea302edf8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dooplenty/PHPoAuthLib/zipball/f9f81866c3ece60aa763b3831a77c24264361d58",
-                "reference": "f9f81866c3ece60aa763b3831a77c24264361d58",
+                "url": "https://api.github.com/repos/dooplenty/PHPoAuthLib/zipball/ac5a1cd5a4519143728dce2213936eea302edf8a",
+                "reference": "ac5a1cd5a4519143728dce2213936eea302edf8a",
                 "shasum": ""
             },
             "require": {
@@ -66,9 +66,9 @@
                 "security"
             ],
             "support": {
-                "source": "https://github.com/dooplenty/PHPoAuthLib/tree/master"
+                "source": "https://github.com/dooplenty/PHPoAuthLib/tree/v0.3.5"
             },
-            "time": "2014-11-21 20:09:01"
+            "time": "2014-09-05 15:19:58"
         },
         {
             "name": "predis/predis",
@@ -124,9 +124,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "lusitanian/oauth": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
