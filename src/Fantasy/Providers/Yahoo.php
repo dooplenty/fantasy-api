@@ -16,7 +16,7 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	{
 		$clientId = $configuration['client_id'];
 		$clientSecret = $configuration['client_secret'];
-		if ($configuration['callback']) {
+		if (isset($configuration['callback'])) {
 			$callback_url = $configuration['callback'];
 		} else {
 			$callback_url = $this->getUriObject()->getAbsoluteUri() . $this->authAppend();
