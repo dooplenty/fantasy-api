@@ -60,6 +60,30 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	 */
 	public function getGames($options = array(), $format = 'array')
 	{
+		$extraString = $this->getExtraString($options);
+
+		$user_games = $this->service->request("users;use_login=1/games${$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
+
+		$games = null;
+
+		if ($user_games) {
+			$method = "xmlTo".ucfirst($format);
+			$user_games = Fantasy_Translations_Translator::$method($games);
+
+			$games = $user_games['users']['user']['games']['game'];
+		}
+
+		return $games;
+	}
+
+	public function getLeagues($options, $format = 'array')
+	{
+		$extraString = $this->getExtraString($options);
+		$leagues = $this->service->request("users;use_login=1/games{$extraString}/leagues");
+	}
+
+	protected function getExtraString($options)
+	{
 		$extraString = get_class($this).time();
 		global $$extraString;
 
@@ -67,10 +91,5 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 			global $$extraString;
 			$$extraString .= ";$key=$value";
 		}, $extraString);
-
-		$games = $this->service->request("users;use_login=1/games${$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
-
-		$method = "xmlTo".ucfirst($format);
-		return Fantasy_Translations_Translator::$method($games);
 	}
 }

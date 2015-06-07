@@ -41,10 +41,17 @@ class YahooTest extends BaseTest
 		$json = Fantasy_Translations_Translator::xmlToJson($xml);
 		$this->assertTrue(is_string($json));
 
-		$php = Fantasy_Translations_Translator::xmlToArray($xml);
-		$this->assertTrue(is_array($php));
+		$array = Fantasy_Translations_Translator::xmlToArray($xml);
+		$this->assertTrue(is_array($array));
 
 		$obj = Fantasy_Translations_Translator::xmlToObject($xml);
 		$this->assertTrue(is_object($obj));
+	}
+
+	public function testGameCount()
+	{
+		$xml = $this->getSample('yahoo', 'games');
+		$array = Fantasy_Translations_Translator::xmlToArray($xml);
+		$this->assertTrue(count($array['users']['user']['games']['game']) == 3);
 	}
 }
