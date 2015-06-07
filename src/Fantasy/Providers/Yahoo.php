@@ -72,7 +72,7 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 
 		if ($user_games) {
 			$method = "xmlTo".ucfirst($format);
-			$user_games = Fantasy_Translations_Translator::$method($games);
+			$user_games = Fantasy_Translations_Translator::$method($user_games);
 
 			$games = $user_games['users']['user']['games']['game'];
 		}
