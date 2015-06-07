@@ -52,6 +52,6 @@ class YahooTest extends BaseTest
 	{
 		$xml = $this->getSample('yahoo', 'games');
 		$array = Fantasy_Translations_Translator::xmlToArray($xml);
-		$this->assertTrue(count($array['users']['user']['games']['game']) == 3);
+		$this->assertTrue(count($array['users']['user']['games']['game']) == 2);
 	}
 }

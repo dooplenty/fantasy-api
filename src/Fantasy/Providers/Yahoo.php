@@ -16,9 +16,13 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	{
 		$clientId = $configuration['client_id'];
 		$clientSecret = $configuration['client_secret'];
-		$callback_url = $this->getUriObject()->getAbsoluteUri() . $this->authAppend();
-		$credentials = new Credentials($clientId, $clientSecret, $callback_url);
+		if ($configuration['callback']) {
+			$callback_url = $configuration['callback'];
+		} else {
+			$callback_url = $this->getUriObject()->getAbsoluteUri() . $this->authAppend();
+		}
 
+		$credentials = new Credentials($clientId, $clientSecret, $callback_url);
 		$storageName = $this->getStorageName($configuration);
 
 		$storage = $this->initStorage($storageName, 'app_init');
@@ -62,7 +66,7 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	{
 		$extraString = $this->getExtraString($options);
 
-		$user_games = $this->service->request("users;use_login=1/games${$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
+		$user_games = $this->service->request("users;use_login=1/games{$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
 
 		$games = null;
 
@@ -79,7 +83,17 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	public function getLeagues($options, $format = 'array')
 	{
 		$extraString = $this->getExtraString($options);
-		$leagues = $this->service->request("users;use_login=1/games{$extraString}/leagues");
+		$user_leagues = $this->service->request("users;use_login=1/games{$extraString}/leagues");
+
+		$leagues = null;
+		if ($user_leagues) {
+			$method = "xmlTo".ucfirst($format);
+			$leagues_array = Fantasy_Translations_Translator::$method($user_leagues);
+
+			$leagues = $leagues_array['users']['user']['games']['game'];
+		}
+
+		return $leagues;
 	}
 
 	protected function getExtraString($options)
