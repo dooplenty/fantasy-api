@@ -17,6 +17,7 @@ class Fantasy_Translations_Translator
 		    if(is_array($obj)) {
 		        $new = array();
 		        foreach($obj as $key => $val) {
+		        	if($key == '@attributes') continue;
 		            $new[$key] = $object_to_array($val);
 		        }
 		    }
