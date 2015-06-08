@@ -80,6 +80,12 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		return $games;
 	}
 
+	/**
+	 * Return all leagues for user
+	 * @param  array $options options to pass to league request (i.e. is_available => 1)
+	 * @param  string $format  options to use in fantasy request
+	 * @return mixed
+	 */
 	public function getLeagues($options, $format = 'array')
 	{
 		$extraString = $this->getExtraString($options);
@@ -96,6 +102,33 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		return $leagues;
 	}
 
+	/**
+	 * Returns all fantasy teams within a league
+	 * @param  array $options options to use in fantasy request
+	 * @param  string $format  format of data to return
+	 * @return mixed
+	 */
+	public function getTeams($options, $format = 'array')
+	{
+		$leagueKey = $options['league_key'];
+		$user_teams = $this->service->request("league/$leagueKey/teams");
+
+		$teams = null;
+		if ($user_teams) {
+			$method = "xmlTo".ucfirst($format);
+			$teams_array = Fantasy_Translations_Translator::$method($user_teams);
+
+			$teams = $teams_array['league']['teams']['team'];
+		}
+
+		return $teams;
+	}
+
+	/**
+	 * Returns the properly format parameters
+	 * @param  array $options options to format
+	 * @return string 		  query string in format ;key=value
+	 */
 	protected function getExtraString($options)
 	{
 		$extraString = get_class($this).time();
