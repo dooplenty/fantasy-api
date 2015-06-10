@@ -29,6 +29,8 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 
 		$serviceFactory = new \OAuth\ServiceFactory();
 		$this->service = $serviceFactory->createService($this->getServiceName(), $credentials, $storage, null, new OAuth\Common\Http\Uri\Uri("http://fantasysports.yahooapis.com/fantasy/v2/"));
+
+		$this->checkTokenRefresh();
 	}
 
 	/**
@@ -68,16 +70,16 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 
 		$user_games = $this->service->request("users;use_login=1/games{$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
 
-		$games = null;
+		$games_trans = null;
 
 		if ($user_games) {
 			$method = "xmlTo".ucfirst($format);
-			$user_games = Fantasy_Translations_Translator::$method($user_games);
+			$games_trans = Fantasy_Translations_Translator::$method($user_games);
 
-			$games = $user_games['users']['user']['games']['game'];
+			// $games = $user_games['users']['user']['games']['game'];
 		}
 
-		return $games;
+		return $games_trans;
 	}
 
 	/**
@@ -91,15 +93,15 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		$extraString = $this->getExtraString($options);
 		$user_leagues = $this->service->request("users;use_login=1/games{$extraString}/leagues");
 
-		$leagues = null;
+		$leagues_trans = null;
 		if ($user_leagues) {
 			$method = "xmlTo".ucfirst($format);
-			$leagues_array = Fantasy_Translations_Translator::$method($user_leagues);
+			$leagues_trans = Fantasy_Translations_Translator::$method($user_leagues);
 
-			$leagues = $leagues_array['users']['user']['games']['game'];
+			// $leagues_trans = $leagues_array['users']['user']['games']['game'];
 		}
 
-		return $leagues;
+		return $leagues_trans;
 	}
 
 	/**
@@ -111,17 +113,39 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	public function getTeams($options, $format = 'array')
 	{
 		$leagueKey = $options['league_key'];
-		$user_teams = $this->service->request("league/$leagueKey/teams");
+		$league_teams = $this->service->request("league/$leagueKey/teams");
 
-		$teams = null;
-		if ($user_teams) {
+		$teams_trans = null;
+		if ($league_teams) {
 			$method = "xmlTo".ucfirst($format);
-			$teams_array = Fantasy_Translations_Translator::$method($user_teams);
+			$teams_trans = Fantasy_Translations_Translator::$method($league_teams);
 
-			$teams = $teams_array['league']['teams']['team'];
+			// $teams = $teams_array['league']['teams']['team'];
 		}
 
-		return $teams;
+		return $teams_trans;
+	}
+
+	/**
+	 * Return all players from a team
+	 * @param  array $options options to use to roster request
+	 * @param  string $format  format of data to return
+	 * @return mixed
+	 */
+	public function getTeamPlayers($options, $format = 'array')
+	{
+		$teamKey = $options['team_key'];
+		$team_players = $this->service->request("team/$team_key/roster/players");
+
+		$players_trans = null;
+		if ($team_players) {
+			$method = "xmlTo".ucfirst($format);
+			$players_trans = Fantasy_Translations_Translator::$method($team_players);
+
+			// $players = $players_array['team']['roster']['players']['player'];
+		}
+
+		return $players_trans;
 	}
 
 	/**
@@ -138,5 +162,24 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 			global $$extraString;
 			$$extraString .= ";$key=$value";
 		}, $extraString);
+	}
+
+	/**
+	 * Check if have an access token and refresh if needed
+	 *
+	 * @return void
+	 */
+	protected function checkTokenRefresh()
+	{
+		$storage = $this->service->getStorage();
+		$serviceName = ucfirst($this->getServiceName());
+
+		if ($storage->hasAccessToken($serviceName)) {
+			$token = $storage->retrieveAccessToken($serviceName);
+
+			if ($token->isExpired()) {
+				$this->service->refreshAccessToken($token);
+			}
+		}
 	}
 }
