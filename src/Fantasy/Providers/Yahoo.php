@@ -112,7 +112,7 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	 */
 	public function getTeams($options, $format = 'array')
 	{
-		$leagueKey = $options['league_key'];
+		$leagueKey = $options['leagueKey'];
 		$league_teams = $this->service->request("league/$leagueKey/teams");
 
 		$teams_trans = null;
@@ -134,8 +134,8 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	 */
 	public function getTeamPlayers($options, $format = 'array')
 	{
-		$teamKey = $options['team_key'];
-		$team_players = $this->service->request("team/$team_key/roster/players");
+		$teamKey = $options['teamKey'];
+		$team_players = $this->service->request("team/$teamKey/roster/players");
 
 		$players_trans = null;
 		if ($team_players) {
