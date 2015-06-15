@@ -177,6 +177,12 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		if ($storage->hasAccessToken($serviceName)) {
 			$token = $storage->retrieveAccessToken($serviceName);
 
+			//need to check if we can refresh yet
+			$extraParams = $token->getExtraParams();
+			if(!isset($extraParams['oauth_session_handle'])) {
+				return;
+			}
+			
 			if ($token->isExpired()) {
 				$this->service->refreshAccessToken($token);
 			}
