@@ -4,15 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "129c7f50459951e880d9b9b4d3eaa16d",
+    "hash": "776e83fd3541af4ad950a14a38481e60",
     "packages": [
         {
-            "name": "dooplenty/oauth",
-            "version": "dev-master",
+            "name": "lusitanian/oauth",
+            "version": "v0.3.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dooplenty/PHPoAuthLib",
-                "reference": "6c333f1ce235694357e9f2af10a17e49e5670dd2"
+                "url": "https://github.com/Lusitanian/PHPoAuthLib.git",
+                "reference": "ac5a1cd5a4519143728dce2213936eea302edf8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/ac5a1cd5a4519143728dce2213936eea302edf8a",
+                "reference": "ac5a1cd5a4519143728dce2213936eea302edf8a",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
@@ -39,6 +45,7 @@
                     "OAuth\\Unit": "tests"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -50,20 +57,16 @@
                 {
                     "name": "Pieter Hordijk",
                     "email": "info@pieterhordijk.com"
-                },
-                {
-                    "name": "Brantley Kendall",
-                    "email": "brantley@dooplenty.com"
                 }
             ],
             "description": "PHP 5.3+ oAuth 1/2 Library",
             "keywords": [
-                "authentication",
+                "Authentication",
                 "authorization",
                 "oauth",
                 "security"
             ],
-            "time": "2015-06-14 12:05:05"
+            "time": "2014-09-05 15:19:58"
         },
         {
             "name": "predis/predis",
@@ -119,9 +122,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "dooplenty/oauth": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
