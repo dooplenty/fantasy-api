@@ -28,6 +28,8 @@ class Fantasy_Client
 				return call_user_func_array(array($this->provider, $method), $args);
 			} catch (\OAuth\Common\Http\Exception\TokenResponseException $e) {
 				throw new Fantasy_Client_Exception_TokenRefreshException('Error completing request.');
+			} catch (Fantasy_Client_Exception_TokenSessionRefreshException $e) {
+				throw new Fantasy_Client_Exception_TokenSessionRefreshException($e->getMessage());
 			} catch (OAuth\Common\Storage\Exception\TokenNotFoundException $e) {
 				throw new Fantasy_Client_Exception_TokenNotFoundException('Error completing request.');
 			} catch (Exception $e) {

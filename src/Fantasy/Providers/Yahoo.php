@@ -17,12 +17,12 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		$clientId = $configuration['client_id'];
 		$clientSecret = $configuration['client_secret'];
 		if (isset($configuration['callback'])) {
-			$callback_url = $configuration['callback'];
+			$callbackUrl = $configuration['callback'];
 		} else {
-			$callback_url = $this->getUriObject()->getAbsoluteUri() . $this->authAppend();
+			$callbackUrl = $this->getUriObject()->getAbsoluteUri() . $this->authAppend();
 		}
 
-		$credentials = new Credentials($clientId, $clientSecret, $callback_url);
+		$credentials = new Credentials($clientId, $clientSecret, $callbackUrl);
 		$storageName = $this->getStorageName($configuration);
 
 		$storage = $this->initStorage($storageName, 'app_init');
@@ -30,7 +30,11 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 		$serviceFactory = new \OAuth\ServiceFactory();
 		$this->service = $serviceFactory->createService($this->getServiceName(), $credentials, $storage, null, new OAuth\Common\Http\Uri\Uri("http://fantasysports.yahooapis.com/fantasy/v2/"));
 
-		$this->checkTokenRefresh();
+		try {
+			$this->checkTokenRefresh();
+		} catch (\OAuth\Common\Http\Exception\TokenResponseException $e) {
+			throw new Fantasy_Client_Exception_TokenSessionRefreshException("Error refreshing access token from session handle.");
+		}
 	}
 
 	/**
@@ -68,18 +72,16 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	{
 		$extraString = $this->getExtraString($options);
 
-		$user_games = $this->service->request("users;use_login=1/games{$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
+		$userGames = $this->service->request("users;use_login=1/games{$extraString};game_codes=nfl", 'GET', null, array('Content-Type: application/xml'));
 
-		$games_trans = null;
+		$gamesTrans = null;
 
-		if ($user_games) {
+		if ($userGames) {
 			$method = "xmlTo".ucfirst($format);
-			$games_trans = Fantasy_Translations_Translator::$method($user_games);
-
-			// $games = $user_games['users']['user']['games']['game'];
+			$gamesTrans = Fantasy_Translations_Translator::$method($userGames);
 		}
 
-		return $games_trans;
+		return $gamesTrans;
 	}
 
 	/**
@@ -91,17 +93,34 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	public function getLeagues($options, $format = 'array')
 	{
 		$extraString = $this->getExtraString($options);
-		$user_leagues = $this->service->request("users;use_login=1/games{$extraString}/leagues");
+		$userLeagues = $this->service->request("users;use_login=1/games{$extraString}/leagues");
 
-		$leagues_trans = null;
-		if ($user_leagues) {
+		$leaguesTrans = null;
+		if ($userLeagues) {
 			$method = "xmlTo".ucfirst($format);
-			$leagues_trans = Fantasy_Translations_Translator::$method($user_leagues);
-
-			// $leagues_trans = $leagues_array['users']['user']['games']['game'];
+			$leaguesTrans = Fantasy_Translations_Translator::$method($userLeagues);
 		}
 
-		return $leagues_trans;
+		return $leaguesTrans;
+	}
+
+	/**
+	 * Returns all fantasy teams within a league
+	 * @param  array $options options to use in fantasy request
+	 * @param  string $format  format of data to return
+	 * @return mixed
+	 */
+	public function getLeagueSettings($options, $format = 'array')
+	{
+		$leagueKey = $options['leagueKey'];
+		$leagueSettings = $this->service->request("league/$leagueKey/settings");
+
+		if ($leagueSettings) {
+			$method = "xmlTo".ucfirst($format);
+			$leagueSettings = Fantasy_Translations_Translator::$method($leagueSettings);
+		}
+
+		return $leagueSettings;
 	}
 
 	/**
@@ -113,17 +132,15 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	public function getTeams($options, $format = 'array')
 	{
 		$leagueKey = $options['leagueKey'];
-		$league_teams = $this->service->request("league/$leagueKey/teams");
+		$leagueTeams = $this->service->request("league/$leagueKey/teams");
 
-		$teams_trans = null;
-		if ($league_teams) {
+		$teamsTrans = null;
+		if ($leagueTeams) {
 			$method = "xmlTo".ucfirst($format);
-			$teams_trans = Fantasy_Translations_Translator::$method($league_teams);
-
-			// $teams = $teams_array['league']['teams']['team'];
+			$teamsTrans = Fantasy_Translations_Translator::$method($leagueTeams);
 		}
 
-		return $teams_trans;
+		return $teamsTrans;
 	}
 
 	/**
@@ -135,17 +152,15 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	public function getTeamPlayers($options, $format = 'array')
 	{
 		$teamKey = $options['teamKey'];
-		$team_players = $this->service->request("team/$teamKey/roster/players");
+		$teamPlayers = $this->service->request("team/$teamKey/roster/players");
 
-		$players_trans = null;
-		if ($team_players) {
+		$playersTrans = null;
+		if ($teamPlayers) {
 			$method = "xmlTo".ucfirst($format);
-			$players_trans = Fantasy_Translations_Translator::$method($team_players);
-
-			// $players = $players_array['team']['roster']['players']['player'];
+			$playersTrans = Fantasy_Translations_Translator::$method($teamPlayers);
 		}
 
-		return $players_trans;
+		return $playersTrans;
 	}
 
 	/**
@@ -162,6 +177,8 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 			global $$extraString;
 			$$extraString .= ";$key=$value";
 		}, $extraString);
+
+		return $extraString;
 	}
 
 	/**
