@@ -23,6 +23,8 @@ abstract class Fantasy_Provider
 				$self = new $provider_class($config_array);
 				return $self;
 			}
+		} catch (Fantasy_Client_Exception_TokenSessionRefreshException $e) {
+			throw new Fantasy_Client_Exception_TokenSessionRefreshException($e->getMessage());
 		} catch(Exception $e) {
 			throw new Exception($e->getMessage());
 		}

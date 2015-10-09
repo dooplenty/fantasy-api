@@ -164,6 +164,26 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	}
 
 	/**
+	 * Return scoreboard resoure
+	 * @param  array $options options to use to roster request
+	 * @param  string $format  format of data to return
+	 * @return mixed
+	 */
+	public function getScoreboard($options, $format = 'array')
+	{
+		$leagueKey = $options['leagueKey'];
+		$scores = $this->service->request("league/$leagueKey/scoreboard");
+
+		$scoresTranslation = null;
+		if($scores) {
+			$method = "xmlTo".ucfirst($format);
+			$scoresTranslation = Fantasy_Translations_Translator::$method($scores);
+		}
+
+		return $scoresTranslation;
+	}
+
+	/**
 	 * Returns the properly format parameters
 	 * @param  array $options options to format
 	 * @return string 		  query string in format ;key=value
