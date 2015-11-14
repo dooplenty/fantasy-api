@@ -184,6 +184,54 @@ class Fantasy_Providers_Yahoo extends Fantasy_Provider
 	}
 
 	/**
+	 * Return scoreboard resoure
+	 * @param  array $options options to use to roster request
+	 * @param  string $format  format of data to return
+	 * @return mixed
+	 */
+	public function getMatchup($options, $format = 'array')
+	{
+		$teamKey = $options['teamKey'];
+		unset($options['teamKey']);
+
+		$extraString = $this->getExtraString($options);
+
+		$matchups = $this->service->request("team/$teamKey/matchups{$extraString}");
+
+		$matchupsTranslation = null;
+		if($matchups) {
+			$method = "xmlTo".ucfirst($format);
+			$matchupsTranslation = Fantasy_Translations_Translator::$method($matchups);
+		}
+
+		return $matchupsTranslation;
+	}
+
+	/**
+	 * Return team stats sub resoure
+	 * @param  array $options options to use to roster request
+	 * @param  string $format  format of data to return
+	 * @return mixed
+	 */
+	public function getTeamStats($options, $format = 'array')
+	{
+		$teamKey = $options['teamKey'];
+		unset($options['teamKey']);
+
+		$extraString = $this->getExtraString($options);
+
+		$stats = $this->service->request("team/$teamKey/stats{$extraString}");
+
+		$statsTranslation = null;
+		if($stats) {
+			$method = "xmlTo".ucfirst($format);
+			$statsTranslation = Fantasy_Translations_Translator::$method($stats);
+		}
+
+		return $statsTranslation;
+	}
+
+	/**
 	 * Returns the properly format parameters
 	 * @param  array $options options to format
 	 * @return string 		  query string in format ;key=value
