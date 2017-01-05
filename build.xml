@@ -11,6 +11,7 @@
     <target name="phpunit" depends="prepare">
         <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
             <arg path="${basedir}/phpunit.xml"/>
+            <arg line="--log-junit ${basedir}/build/logs/phpunit.xml" />
         </exec>
     </target>
  
