@@ -10,16 +10,9 @@
  
     <target name="phpunit" depends="prepare">
         <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
-            <arg path="${basedir}/phpunit.xml"/>
-            <arg line="--log-junit ${basedir}/build/logs/phpunit.xml" />
-        </exec>
-    </target>
- 
-    <target name="documentation" depends="prepare">
-        <exec dir="${basedir}" executable="docblox" failonerror="false">
-            <arg line="run -t ${basedir}/build/docblox" />
+            <arg line="--verbose --stderr" />
         </exec>
     </target>
 
-    <target name="build" depends="clean,prepare,phpunit,documentation" />
+    <target name="build" depends="clean,prepare,phpunit" />
 </project>
