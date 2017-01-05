@@ -1,0 +1,26 @@
+<project name="My Project Name" default="build">
+    <target name="clean">
+        <delete dir="${basedir}/build" />
+    </target>
+ 
+    <target name="prepare">
+        <mkdir dir="${basedir}/build/logs" />
+        <mkdir dir="${basedir}/build/dependencies" />
+    </target>
+ 
+    <target name="phpunit">
+        <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
+            <arg line="--log-junit ${basedir}/build/logs/phpunit.xml
+                       --coverage-clover ${basedir}/build/logs/clover.xml
+                       --coverage-html ${basedir}/build/coverage" />
+        </exec>
+    </target>
+ 
+    <target name="documentation" depends="prepare">
+        <exec dir="${basedir}" executable="docblox" failonerror="false">
+            <arg line="run -t ${basedir}/build/docblox" />
+        </exec>
+    </target>
+
+    <target name="build" depends="clean,prepare,phpunit,documentation" />
+</project>
