@@ -16,11 +16,5 @@
         </exec>
     </target>
  
-    <target name="documentation" depends="prepare">
-        <exec dir="${basedir}" executable="docblox" failonerror="false">
-            <arg line="run -t ${basedir}/build/docblox" />
-        </exec>
-    </target>
-
-    <target name="build" depends="clean,prepare,phpunit,documentation" />
+    <target name="build" depends="clean,prepare,phpunit" />
 </project>
