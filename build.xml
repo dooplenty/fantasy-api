@@ -9,7 +9,7 @@
     </target>
  
     <target name="phpunit" depends="prepare">
-        <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
+        <exec dir="${basedir}" executable="phpunit" failonerror="true">
             <arg line="--verbose --stderr" />
         </exec>
     </target>
