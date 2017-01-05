@@ -1,4 +1,4 @@
-<project name="My Project Name" default="build">
+<project name="Fantasy API" default="build">
     <target name="clean">
         <delete dir="${basedir}/build" />
     </target>
@@ -8,11 +8,9 @@
         <mkdir dir="${basedir}/build/dependencies" />
     </target>
  
-    <target name="phpunit">
+    <target name="phpunit" depends="prepare">
         <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
-            <arg line="--log-junit ${basedir}/build/logs/phpunit.xml
-                       --coverage-clover ${basedir}/build/logs/clover.xml
-                       --coverage-html ${basedir}/build/coverage" />
+            <arg path="${basedir}/phpunit.xml"/>
         </exec>
     </target>
  
