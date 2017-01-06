@@ -1,5 +1,4 @@
 <project name="Fantasy API" default="build">
-    <property name="phpunit" value="phpunit"/>
     <target name="clean">
         <delete dir="${basedir}/build" />
     </target>
@@ -9,12 +8,21 @@
         <mkdir dir="${basedir}/build/dependencies" />
     </target>
  
-    <target name="phpunit" depends="prepare">
-        <exec executable="${phpunit}" failonerror="true">
-            <arg line="--verbose" />
-            <arg path="${basedir}/phpunit.xml"/>
-        </exec>
-    </target>
+   <target name="phpunit"
+         unless="phpunit.done"
+         depends="prepare"
+         description="Run unit tests with PHPUnit">
+      <exec
+        executable="phpunit"
+        taskname="phpunit"
+        resultproperty="phpunit.result"
+        failonerror="false">
+        <arg value="-c" />
+      </exec>
+      <echo message="PHPUnit result was: ${phpunit.result}" />
+
+      <property name="phpunit.done" value="true"/>
+     </target>
  
     <target name="build" depends="clean,prepare,phpunit" />
 </project>
