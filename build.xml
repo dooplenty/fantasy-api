@@ -10,7 +10,7 @@
     </target>
  
     <target name="phpunit" depends="prepare">
-        <exec executable="/usr/local/bin/phpunit" failonerror="true">
+        <exec executable="${phpunit}" failonerror="true">
             <arg line="--verbose" />
             <arg path="${basedir}/phpunit.xml"/>
         </exec>
