@@ -9,8 +9,8 @@
     </target>
  
     <target name="phpunit" depends="prepare">
-        <exec dir="${basedir}" executable="/usr/local/bin/phpunit" failonerror="true">
-             <arg line="--log-junit ${basedir}/build/logs/phpunit.xml
+        <exec executable="/usr/local/bin/phpunit" failonerror="true">
+             <arg line="--verbose --log-junit ${basedir}/build/logs/phpunit.xml
                        --coverage-clover ${basedir}/build/logs/clover.xml
                        --coverage-html ${basedir}/build/coverage" />
         </exec>
